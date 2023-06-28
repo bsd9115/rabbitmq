@@ -1,0 +1,23 @@
+version: "3"
+services:
+
+  rabbit:
+    image: rabbitmq:3-management
+    environment:
+      - RABBITMQ_DEFAULT_USER=test
+      - RABBITMQ_DEFAULT_PASS=test
+      - SSL_CACERTFILE=/etc/ssl/rabbit/cacert.pem
+      - SSL_CERTFILE=/etc/ssl/rabbit/cert.pem
+      - SSL_FAIL_IF_NO_PEER_CERT=false
+      - SSL_KEYFILE=/etc/ssl/rabbit/key.pem
+      - SSL_VERIFY=verify_peer
+    ports:
+    - "15671-15672:15671-15672"
+    - "442-443:442-443"
+    - "5671-5672:5671-5672"
+    - "15692:15692"
+    volumes:
+    - ./certificates/ca_certificate.pem:/etc/ssl/rabbit/cacert.pem
+    - ./certificates/server_certificate.pem:/etc/ssl/rabbit/cert.pem
+    - ./certificates/server_key.pem:/etc/ssl/rabbit/key.pem
+
